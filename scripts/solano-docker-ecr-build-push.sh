@@ -27,6 +27,10 @@ fi
 
 #Log in to AWS ECR Docker Repository
 DOCKER_LOGIN_CMD="$AWS ecr get-login --region $AWS_DEFAULT_REGION"
+
+echo $DOCKER_LOGIN_CMD
+echo "Assigning repository credentials..."
+
 DOCKER_LOGIN=`sudo $DOCKER_LOGIN_CMD`
 $DOCKER_LOGIN
 
@@ -36,11 +40,15 @@ if [ $? -ne 0 ]; then
 fi
 
 # Build docker image
+echo "Performing docker build."
 sudo docker build -t $DOCKER_APP:$TDDIUM_SESSION_ID .
+echo "Completed docker build."
 
 #tag image and push to AWS ECR
 sudo docker tag ${DOCKER_APP}:${TDDIUM_SESSION_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}
+echo "Pushing docker image to repository."
 sudo docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}
+echo "Image in repository."
 
 # Start docker container and record ID and IP address
 CID=$(sudo docker run -d --expose=80 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID})
