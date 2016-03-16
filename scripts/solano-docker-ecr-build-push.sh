@@ -33,8 +33,12 @@ DOCKER_LOGIN_CMD="aws ecr get-login --region $AWS_DEFAULT_REGION"
 echo $DOCKER_LOGIN_CMD >> $SOLANO_LOGFILE
 echo "Assigning repository credentials..." >> $SOLANO_LOGFILE
 
-DOCKER_LOGIN=`sudo $DOCKER_LOGIN_CMD`
-$DOCKER_LOGIN
+DOCKER_LOGIN=`$DOCKER_LOGIN_CMD`
+echo "Finished run of aws get-login." >> $SOLANO_LOGFILE
+
+echo "Performing docker login...." >> $SOLANO_LOGFILE
+sudo $DOCKER_LOGIN
+echo "Done with docker login." >> $SOLANO_LOGFIL
 
 if [ $? -ne 0 ]; then
         echo "Error logging into Docker Repository."
