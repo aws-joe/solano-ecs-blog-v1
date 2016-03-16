@@ -21,14 +21,14 @@ if [[ -z "$AWS_ACCOUNT_ID" || -z "$AWS_DEFAULT_REGION " ]]; then
 	exit 1
 fi
 
-AWS=`which aws`
+which aws
 if [ $? -ne 0 ]; then
 	echo "Cannot find aws command."
 	exit 1
 fi
 
 #Log in to AWS ECR Docker Repository
-DOCKER_LOGIN_CMD="$AWS ecr get-login --region $AWS_DEFAULT_REGION"
+DOCKER_LOGIN_CMD="aws ecr get-login --region $AWS_DEFAULT_REGION"
 
 echo $DOCKER_LOGIN_CMD >> $SOLANO_LOGFILE
 echo "Assigning repository credentials..." >> $SOLANO_LOGFILE
