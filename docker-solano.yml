@@ -2,7 +2,8 @@ system:
   docker: true
 
 environment:
-  'DOCKER_APP': 'solano-ecs-repo'
+  'DOCKER_APP': 'solano'
+  'DEPLOY_DOCKER': 'false'
   'DEPLOY_AWS_ECS': 'true'
   'AWS_ECS_CLUSTER': 'solano-ecs-cluster'
   'AWS_ECS_SERVICE': 'solano-ecs-service'
@@ -19,12 +20,20 @@ environment:
 timeout_hook: 900
 
 hooks:
-  pre_setup: chmod -R 755 ./scripts
-  post_setup:  ./scripts/solano-docker-ecr-build-push.sh
-  post_build: ./scripts/solano-docker-ecs-deploy.sh
+  pre_setup: 
+    set -e # #xit on error
+    chmod -R 755 ./scripts
+    ./scripts/solano-docker_build.sh
+  post_build: ./scripts/solano-deploy.sh 
 
 php:
   php_version: "5.6"
 
 tests:
- - 'sudo docker run ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} /usr/bin/php /var/www/html/www/index.php'
+  - type: phpunit
+    mode: parallel
+    command: ./vendor/bin/solano-phpunit
+    config: phpunit.xml
+    files:
+      - tests/**_test.php
+    'sudo docker run fontesj/solano-docker:$TDDIUM_SESSION_ID /usr/bin/php /var/www/html/www/index.php'
