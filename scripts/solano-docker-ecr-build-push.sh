@@ -33,7 +33,7 @@ DOCKER_LOGIN_CMD="aws ecr get-login --region $AWS_DEFAULT_REGION"
 echo $DOCKER_LOGIN_CMD >> $SOLANO_LOGFILE
 echo "Assigning repository credentials..." >> $SOLANO_LOGFILE
 
-DOCKER_LOGIN=`$DOCKER_LOGIN_CMD`
+DOCKER_LOGIN=`$DOCKER_LOGIN_CMD` >> $SOLANO_LOGFILE
 echo "Finished run of aws get-login." >> $SOLANO_LOGFILE
 
 echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
