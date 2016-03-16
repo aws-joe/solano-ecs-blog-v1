@@ -27,5 +27,5 @@ php:
   php_version: "5.6"
 
 tests:
-  - 'echo -n "Done!"; exit 0'
+  - 'echo "Done with test"'
 # - 'sudo docker run ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} /usr/bin/php /var/www/html/www/index.php'
