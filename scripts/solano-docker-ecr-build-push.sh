@@ -28,12 +28,8 @@ if [ $? -ne 0 ]; then
 fi
 
 #Log in to AWS ECR Docker Repository
-DOCKER_LOGIN_CMD="aws ecr get-login --region $AWS_DEFAULT_REGION"
-
-echo $DOCKER_LOGIN_CMD >> $SOLANO_LOGFILE
 echo "Assigning repository credentials..." >> $SOLANO_LOGFILE
-
-DOCKER_LOGIN=`$DOCKER_LOGIN_CMD` >> $SOLANO_LOGFILE
+DOCKER_LOGIN=`aws ecr get-login --region $AWS_DEFAULT_REGION` >> $SOLANO_LOGFILE
 echo "Finished run of aws get-login." >> $SOLANO_LOGFILE
 
 echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
