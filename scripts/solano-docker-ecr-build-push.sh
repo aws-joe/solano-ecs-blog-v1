@@ -5,8 +5,6 @@ SOLANO_LOGFILE="$HOME/results/$TDDIUM_SESSION_ID/session/solano-docker-ecr-build
 echo "Starting solano-docker-ecr-build-push.sh" > $SOLANO_LOGFILE
 date >> $SOLANO_LOGFILE
 
-set -o errexit -o pipefail # Exit on error
-
 # Ensure aws-cli is installed and configured
 if [ ! -f $HOME/bin/aws ]; then
   curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"

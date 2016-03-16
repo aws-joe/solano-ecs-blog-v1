@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on script errors
-set -o errexit -o pipefail
+#set -o errexit -o pipefail
 
 # Only deploy if all tests have passed
 if [[ "passed" != "$TDDIUM_BUILD_STATUS" ]]; then
