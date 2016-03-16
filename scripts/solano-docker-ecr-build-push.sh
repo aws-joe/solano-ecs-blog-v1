@@ -36,6 +36,8 @@ echo "Assigning repository credentials..." >> $SOLANO_LOGFILE
 DOCKER_LOGIN=`$DOCKER_LOGIN_CMD`
 echo "Finished run of aws get-login." >> $SOLANO_LOGFILE
 
+echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
+
 echo "Performing docker login...." >> $SOLANO_LOGFILE
 sudo $DOCKER_LOGIN
 echo "Done with docker login." >> $SOLANO_LOGFIL
