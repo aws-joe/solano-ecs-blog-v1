@@ -1,7 +1,10 @@
 #!/bin/bash
 
+#initial version provided by Solano Labs:
+#  https://github.com/solanolabs/ci_memes-docker/
+
 # Exit on script errors
-#set -o errexit -o pipefail
+set -o errexit -o pipefail
 
 # Only deploy if all tests have passed
 if [[ "passed" != "$TDDIUM_BUILD_STATUS" ]]; then
@@ -16,13 +19,6 @@ if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
   echo "Will only depoloy on master branch"
   exit
 fi
-
-# Uncomment if cli-initiated Solano builds should not trigger deploys
-#if [[ "ci" != "$TDDIUM_MODE" ]]; then
-#  echo "\$TDDIUM_MODE = $TDDIUM_MODE"
-#  echo "Will on deploy on ci initiated builds."
-#  exit
-#fi
 
 # Deploy to AWS EC2 Container Service?
 if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
@@ -42,6 +38,7 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   # Get revision number of newly created definition
   #REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | jq '.taskDefinition.revision'`
   REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
+
   # Update
   echo "aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV} --region $AWS_DEFAULT_REGION"
   aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV} --region $AWS_DEFAULT_REGION
