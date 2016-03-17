@@ -1,5 +1,6 @@
 system:
   docker: true
+  queue: docker
 
 environment:
   'DOCKER_APP': 'solano-ecs-repo'
