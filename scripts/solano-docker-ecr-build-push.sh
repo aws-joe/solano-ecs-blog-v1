@@ -35,9 +35,10 @@ echo "Finished run of aws get-login." >> $SOLANO_LOGFILE
 echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
 
 echo "Performing docker login...." >> $SOLANO_LOGFILE
-exit 0
-sudo $DOCKER_LOGIN
+
+sudo $DOCKER_LOGIN >> $SOLANO_LOGFIL
 echo "Done with docker login." >> $SOLANO_LOGFIL
+exit 0
 
 # Build docker image
 echo "Performing docker build." >> $SOLANO_LOGFILE
