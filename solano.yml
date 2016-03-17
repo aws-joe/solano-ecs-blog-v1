@@ -16,7 +16,7 @@ environment:
   # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
   # 'AWS_DEFAULT_REGION': '<set-with-cli>'
 
-timeout_hook: 900
+timeout_hook: 30
 
 hooks:
   pre_setup: chmod -R 755 ./scripts
