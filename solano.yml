@@ -17,12 +17,12 @@ environment:
   # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
   # 'AWS_DEFAULT_REGION': '<set-with-cli>'
 
-timeout_hook: 30
+timeout_hook: 900
 
 hooks:
   pre_setup: chmod -R 755 ./scripts
   post_setup:  ./scripts/solano-docker-ecr-build-push.sh
-#  post_build: ./scripts/solano-docker-ecs-deploy.sh
+  post_build: ./scripts/solano-docker-ecs-deploy.sh
 
 php:
   php_version: "5.6"
