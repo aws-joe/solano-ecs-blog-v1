@@ -36,14 +36,15 @@ echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
 
 echo "Performing docker login...." >> $SOLANO_LOGFILE
 
-sudo $DOCKER_LOGIN >> $SOLANO_LOGFIL
+$DOCKER_LOGIN >> $SOLANO_LOGFIL
+
 echo "Done with docker login." >> $SOLANO_LOGFIL
-exit 0
 
 # Build docker image
 echo "Performing docker build." >> $SOLANO_LOGFILE
 sudo docker build -t $DOCKER_APP:$TDDIUM_SESSION_ID . >> $SOLANO_LOGFILE
 echo "Completed docker build." >> $SOLANO_LOGFILE
+exit 0
 
 #tag image and push to AWS ECR
 sudo docker tag ${DOCKER_APP}:${TDDIUM_SESSION_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} >> $SOLANO_LOGFILE
