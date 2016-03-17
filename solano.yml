@@ -21,7 +21,7 @@ timeout_hook: 30
 hooks:
   pre_setup: chmod -R 755 ./scripts
   post_setup:  ./scripts/solano-docker-ecr-build-push.sh
-  post_build: ./scripts/solano-docker-ecs-deploy.sh
+#  post_build: ./scripts/solano-docker-ecs-deploy.sh
 
 php:
   php_version: "5.6"
