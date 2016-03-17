@@ -38,11 +38,6 @@ echo "Performing docker login...." >> $SOLANO_LOGFILE
 sudo $DOCKER_LOGIN
 echo "Done with docker login." >> $SOLANO_LOGFIL
 
-if [ $? -ne 0 ]; then
-        echo "Error logging into Docker Repository."
-        exit 1
-fi
-
 # Build docker image
 echo "Performing docker build." >> $SOLANO_LOGFILE
 sudo docker build -t $DOCKER_APP:$TDDIUM_SESSION_ID . >> $SOLANO_LOGFILE
