@@ -48,7 +48,7 @@ echo "Completed docker build." >> $SOLANO_LOGFILE
 sudo docker tag ${DOCKER_APP}:${TDDIUM_SESSION_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} >> $SOLANO_LOGFILE
 echo "Pushing docker image to repository." >> $SOLANO_LOGFILE
 
-#sudo docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} >> $SOLANO_LOGFILE
+sudo docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID} >> $SOLANO_LOGFILE
 echo "Image in repository." >> $SOLANO_LOGFILE
 
 # Start docker container and record ID and IP address
