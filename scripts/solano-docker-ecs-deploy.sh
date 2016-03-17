@@ -40,8 +40,8 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   aws ecs register-task-definition --family $AWS_ECS_TASK_DEFINITION --cli-input-json file://task-${TDDIUM_SESSION_ID}.json
 
   # Get revision number of newly created definition
-  REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | jq '.taskDefinition.revision'`
-
+  #REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | jq '.taskDefinition.revision'`
+  REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
   # Update
   echo "aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV} --region $AWS_DEFAULT_REGION"
   aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV} --region $AWS_DEFAULT_REGION

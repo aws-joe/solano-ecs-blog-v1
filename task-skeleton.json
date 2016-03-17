@@ -2,7 +2,7 @@
   "family": "%AWS_ECS_TASK_DEFINITION%",
   "containerDefinitions": [
     {
-      "name": "%AWS_ECS_TASK_DEFINITION%",
+      "name": "%AWS_ECS_TASK_NAME%",
       "image": "%AWS_DOCKER_FULL_IMAGE%",
       "cpu": 100,
       "memory": 128,
