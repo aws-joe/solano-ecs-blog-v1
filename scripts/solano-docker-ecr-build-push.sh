@@ -36,7 +36,7 @@ echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
 
 echo "Performing docker login...." >> $SOLANO_LOGFILE
 
-$DOCKER_LOGIN >> $SOLANO_LOGFIL
+sudo $DOCKER_LOGIN >> $SOLANO_LOGFIL
 
 echo "Done with docker login." >> $SOLANO_LOGFIL
 
