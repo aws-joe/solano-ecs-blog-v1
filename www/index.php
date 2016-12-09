@@ -12,7 +12,7 @@
 # Please see LICENSE.txt for applicable license terms and NOTICE.txt for applicable notices. 
 */
 
-$AppName = "Demo Web App v99";
+$AppName = "Demo Web App v98";
 
 ob_start();
 
