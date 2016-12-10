@@ -36,7 +36,10 @@ if [ $? -ne 0 ]; then
 fi
 
 #Performing the assume role to get credentials
-echo "Assuming AWS Role"
+echo "Assuming AWS Role for ECS"
+aws configure list
+curl http://169.254.169.254/latest/meta-data/
+curl http://169.254.169.254/latest/meta-data/iam/info
 AWS_TMP_CRED=`aws sts assume-role --role-arn $AWS_ASSUME_ROLE --role-session-name $TDDIUM_SESSION_ID --external-id $AWS_EXTERNAL_ID`
 export AWS_ACCESS_KEY_ID=`echo $AWS_TMP_CRED | jq .Credentials.AccessKeyId | cut -d\" -f 2 `
 export AWS_SECRET_ACCESS_KEY=`echo $AWS_TMP_CRED | jq .Credentials.SecretAccessKey | cut -d\" -f 2 `
