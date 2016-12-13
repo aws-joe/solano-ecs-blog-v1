@@ -23,6 +23,12 @@ fi
 # Deploy to AWS EC2 Container Service?
 if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
 
+  echo "Using AssumeRole $ROLE"
+  export AWS_ACCESS_KEY_ID=$AWS_ASSUME_ROLE_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY=$AWS_ASSUME_ROLE_SECRET_ACCESS_KEY
+  export AWS_SESSION_TOKEN=$AWS_ASSUME_ROLE_SESSION_TOKEN
+  echo "Token: $AWS_SESSION_TOKEN"
+
   # Ensure required environment variables are set
   if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_DEFAULT_REGION" ]; then
     echo "AWS ECS deploy requires setting \$AWS_ACCESS_KEY_ID, \$AWS_SECRET_ACCESS_KEY, and \$AWS_DEFAULT_REGION"
@@ -31,15 +37,10 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   fi
 
   #Performing the assume role to get credentials
-  echo "Assuming AWS Role"
   #AWS_TMP_CRED=`aws sts assume-role --role-arn $AWS_ASSUME_ROLE --role-session-name $TDDIUM_SESSION_ID --external-id $AWS_EXTERNAL_ID`
   #export AWS_ACCESS_KEY_ID=`echo $AWS_TMP_CRED | jq .Credentials.AccessKeyId | cut -d\" -f 2 `
   #export AWS_SECRET_ACCESS_KEY=`echo $AWS_TMP_CRED | jq .Credentials.SecretAccessKey | cut -d\" -f 2 `
   #export AWS_SESSION_TOKEN=`echo $AWS_TMP_CRED | jq .Credentials.SessionToken | cut -d\" -f 2 `
-  export AWS_ACCESS_KEY_ID=$AWS_ASSUME_ROLE_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY=$AWS_ASSUME_ROLE_SECRET_ACCESS_KEY
-  export AWS_SESSION_TOKEN=$AWS_ASSUME_ROLE_SESSION_TOKEN
-  echo "Token: $AWS_SESSION_TOKEN"
   exit 0
 
   # Create new task definition from template file
