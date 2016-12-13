@@ -36,13 +36,6 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
     exit 1
   fi
 
-  #Performing the assume role to get credentials
-  #AWS_TMP_CRED=`aws sts assume-role --role-arn $AWS_ASSUME_ROLE --role-session-name $TDDIUM_SESSION_ID --external-id $AWS_EXTERNAL_ID`
-  #export AWS_ACCESS_KEY_ID=`echo $AWS_TMP_CRED | jq .Credentials.AccessKeyId | cut -d\" -f 2 `
-  #export AWS_SECRET_ACCESS_KEY=`echo $AWS_TMP_CRED | jq .Credentials.SecretAccessKey | cut -d\" -f 2 `
-  #export AWS_SESSION_TOKEN=`echo $AWS_TMP_CRED | jq .Credentials.SessionToken | cut -d\" -f 2 `
-  exit 0
-
   # Create new task definition from template file
   AWS_ECR_IMAGE_LOC="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}"
   sed -e "s;%AWS_ECS_TASK_DEFINITION%;${AWS_ECS_TASK_DEFINITION};g" task-skeleton.json | sed -e "s;%AWS_ECS_TASK_NAME%;${AWS_ECS_TASK_NAME};g" | sed -e "s;%AWS_DOCKER_FULL_IMAGE%;${AWS_ECR_IMAGE_LOC};g" > task-${TDDIUM_SESSION_ID}.json
