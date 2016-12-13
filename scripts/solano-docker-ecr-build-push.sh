@@ -50,7 +50,7 @@ DOCKER_LOGIN=`aws ecr get-login --region $AWS_DEFAULT_REGION`
 echo $DOCKER_LOGIN
 
 echo "Performing docker login."
-$DOCKER_LOGIN
+sudo $DOCKER_LOGIN
 echo "Login Complete"
 
 # Build docker image
