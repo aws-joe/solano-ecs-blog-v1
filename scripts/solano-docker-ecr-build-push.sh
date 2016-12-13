@@ -51,8 +51,7 @@ echo $DOCKER_LOGIN
 
 echo "Performing docker login."
 $DOCKER_LOGIN
-#uncomment below to view AWS ECR credentials in log file output:
-#echo $DOCKER_LOGIN >> $SOLANO_LOGFILE
+echo "Login Complete"
 
 # Build docker image
 echo "Performing docker build."
