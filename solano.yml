@@ -2,7 +2,7 @@ system:
   docker: true
 
 environment:
-  'DOCKER_APP': 'solano-ecs-repo'
+  'DOCKER_APP': 'solano'
   'DEPLOY_AWS_ECS': 'true'
   'AWS_ECS_CLUSTER': 'solano-ecs-cluster'
   'AWS_ECS_SERVICE': 'solano-ecs-service'

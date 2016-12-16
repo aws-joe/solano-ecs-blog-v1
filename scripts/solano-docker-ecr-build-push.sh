@@ -55,14 +55,14 @@ echo "Login Complete"
 
 # Build docker image
 echo "Performing docker build."
-sudo docker build -t $DOCKER_APP:$TDDIUM_SESSION_ID .
+sudo docker build -t $AWS_ECR_REPO:$TDDIUM_SESSION_ID .
 echo "Completed docker build."
 
 #tag image and push to AWS ECR
-sudo docker tag ${DOCKER_APP}:${TDDIUM_SESSION_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}
+sudo docker tag ${AWS_ECR_REPO}:${TDDIUM_SESSION_ID} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REPO}:${TDDIUM_SESSION_ID}
 
 # Pushing docker image to repository
-sudo docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}
+sudo docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REPO}:${TDDIUM_SESSION_ID}
 echo "Image uploaded to repository."
 
 echo "Push to AWS ECR Complete" >> $SOLANO_LOGFILE

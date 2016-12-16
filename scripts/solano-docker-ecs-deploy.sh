@@ -37,7 +37,7 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   fi
 
   # Create new task definition from template file
-  AWS_ECR_IMAGE_LOC="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${DOCKER_APP}:${TDDIUM_SESSION_ID}"
+  AWS_ECR_IMAGE_LOC="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REPO}:${TDDIUM_SESSION_ID}"
   sed -e "s;%AWS_ECS_TASK_DEFINITION%;${AWS_ECS_TASK_DEFINITION};g" task-skeleton.json | sed -e "s;%AWS_ECS_TASK_NAME%;${AWS_ECS_TASK_NAME};g" | sed -e "s;%AWS_DOCKER_FULL_IMAGE%;${AWS_ECR_IMAGE_LOC};g" > task-${TDDIUM_SESSION_ID}.json
   aws ecs register-task-definition --family $AWS_ECS_TASK_DEFINITION --cli-input-json file://task-${TDDIUM_SESSION_ID}.json
 
